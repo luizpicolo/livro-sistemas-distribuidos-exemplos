@@ -1,0 +1,33 @@
+{
+  "name": "kafkajs-sample",
+  "version": "0.0.1",
+  "description": "A simple usage of kafkajs module using NodeJs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "kafka:up": "docker-compose up",
+    "kafka:down": "docker-compose down",
+    "start:dev": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devmhp96/kafkajs-sample.git"
+  },
+  "keywords": [
+    "kafkajs",
+    "nodejs"
+  ],
+  "author": "M.Hoseinpour",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devmhp96/kafkajs-sample/issues"
+  },
+  "homepage": "https://github.com/devmhp96/kafkajs-sample#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "kafkajs": "^2.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

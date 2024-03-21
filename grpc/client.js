@@ -1,0 +1,34 @@
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+
+const tasksDefs = protoLoader.loadSync('./tasks.proto');
+const tasksProto = grpc.loadPackageDefinition(tasksDefs);
+
+const clientGRPC = new tasksProto.TaskService('127.0.0.1:5050', grpc.credentials.createInsecure());
+
+clientGRPC.findAll({}, (err, tasks) => {
+    if (err) {
+        console.error(err);
+        return err;
+    } 
+
+    console.table(tasks);
+});
+
+// clientGRPC.findOne({ id: 2 } , (err, task) => {
+//     if (err) {
+//         console.error(err);
+//         return;
+//     }
+
+//     console.table(task);
+// });
+
+// clientGRPC.findOne({ id: -1 } , (err, task) => {
+//         if (err) {
+//             console.error(err.message);
+//             return;
+//         }
+
+//     console.table(task);
+// });
