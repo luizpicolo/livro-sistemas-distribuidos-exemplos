@@ -1,22 +1,18 @@
 syntax = "proto3";
 
-// -- Services
+// Services
 service TaskService {
     rpc FindAll(Empty) returns (TaskList) {}
     rpc InsertOne(Task) returns (Task) {}
     rpc FindOne(TaskRequest) returns (Task) {}
 }
 
-// -- Messages
+// Messages
 message Empty {}
 
 message Task {
-    required int32 id = 1;
-    required string title = 2;
-}
-
-message String {
-    required string x = 1;
+    int32 id = 1;
+    string title = 2;
 }
 
 message TaskList {
@@ -24,5 +20,5 @@ message TaskList {
 }
 
 message TaskRequest {
-    required int32 id = 1;
+    int32 id = 1;
 }

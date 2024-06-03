@@ -1,51 +1,32 @@
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
+import { loadPackageDefinition, Server, status, ServerCredentials } from '@grpc/grpc-js';
+import { loadSync } from '@grpc/proto-loader';
 
-const tasksDefs = protoLoader.loadSync('./tasks.proto');
-const tasksProto = grpc.loadPackageDefinition(tasksDefs);
+const tasksDefs = loadSync('./tasks.proto');
+const tasksProto = loadPackageDefinition(tasksDefs);
 
 const tasks = [
-    { id: 1, title: 'Task 1' },
-    { id: 2, title: 'Task 2' },
+    { id: 1, title: 'Task 1' }
 ];
 
-const grpcServer = new grpc.Server();
+const grpcServer = new Server();
 grpcServer.addService(tasksProto.TaskService.service, {
     findAll: (call, callback) => {
-        try {
-            const request = call.request;
-
-            if (request.error) {
-                throw new Error(request.error);
-            }
-
-            callback(null, { tasks: tasks });
-        } catch (error) {
-            callback(error);
-        }
+        callback(null, { tasks: tasks });
     },
 
     insertOne: (call, callback) => {
-        const task = call.request;
-        tasks.push(task);
-        callback(null, task);
+        tasks.push(call.request);
+        callback(null, call.request);
     },
     
-    findOne: (_, callback) => {
-        const id = _.request.id;
-        const task = tasks.find(e => e.id == id);
-
-        if (task) {
-            callback(null, task);
-        } else {
-            callback({
-                code: grpc.status.NOT_FOUND,
-                details: 'id not exists',
-            });
-        }
+    findOne: (call, callback) => {
+        const task = tasks.find(e => e.id == call.request.id);
+        callback(null, task);
     },
 });
 
-grpcServer.bindAsync('0.0.0.0:5050', grpc.ServerCredentials.createInsecure(), () => grpcServer.start());
-
-console.info('Server started on 0.0.0.0:5050');
+const serverAddress = '0.0.0.0:5050';
+grpcServer.bindAsync(serverAddress, ServerCredentials.createInsecure(), () => {
+    console.info(`Server started on ${serverAddress}`);
+    grpcServer.start();
+});

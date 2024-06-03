@@ -1,0 +1,3 @@
+grpc_tools_node_protoc --js_out=import_style=commonjs,binary:/Users/luizpicolo/Programacao/JavaScript/livro-sistemas-distribuidos-exemplos/grpc --grpc_out=/Users/luizpicolo/Programacao/JavaScript/livro-sistemas-distribuidos-exemplos/grpc --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` tasks.proto
+
+grpc_tools_node_protoc --js_out=import_style=commonjs,binary:/Users/luizpicolo/Programacao/JavaScript/livro-sistemas-distribuidos-exemplos/grpc --grpc_out=/Users/luizpicolo/Programacao/JavaScript/livro-sistemas-distribuidos-exemplos/grpc --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` tasks.proto

@@ -1,34 +1,43 @@
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
+import { loadPackageDefinition, credentials } from '@grpc/grpc-js';
+import { loadSync } from '@grpc/proto-loader';
 
-const tasksDefs = protoLoader.loadSync('./tasks.proto');
-const tasksProto = grpc.loadPackageDefinition(tasksDefs);
+const tasksDefs = loadSync('./tasks.proto');
+const tasksProto = loadPackageDefinition(tasksDefs);
 
-const clientGRPC = new tasksProto.TaskService('127.0.0.1:5050', grpc.credentials.createInsecure());
+const clientGRPC = new tasksProto.TaskService('127.0.0.1:5050', credentials.createInsecure());
 
 clientGRPC.findAll({}, (err, tasks) => {
     if (err) {
         console.error(err);
-        return err;
+        return;
     } 
 
-    console.table(tasks);
+    //console.table(tasks);
 });
 
-// clientGRPC.findOne({ id: 2 } , (err, task) => {
-//     if (err) {
-//         console.error(err);
-//         return;
-//     }
+clientGRPC.insertOne({ id: 2, title: 'Task 2' }, (err, task) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
 
-//     console.table(task);
-// });
+    //console.log('Task inserted:', task);
+});
 
-// clientGRPC.findOne({ id: -1 } , (err, task) => {
-//         if (err) {
-//             console.error(err.message);
-//             return;
-//         }
+clientGRPC.findOne({ id: 4 } , (err, task) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
 
-//     console.table(task);
-// });
+    console.table(task);
+});
+
+clientGRPC.findAll({}, (err, tasks) => {
+    if (err) {
+        console.error(err);
+        return;
+    } 
+
+    //console.table(tasks);
+});
