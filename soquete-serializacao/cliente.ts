@@ -1,10 +1,5 @@
 import * as net from 'net';
-
-// Definir o tipo para a pessoa
-interface Person {
-  name: string;
-  age: string;
-}
+import { ProdutoInterface } from './produto_interface';
 
 // Criar um cliente de socket
 const client = net.createConnection({
@@ -12,10 +7,14 @@ const client = net.createConnection({
   port: 3001
 });
 
-const person: Person = {
-  name: 'Picolo',
-  age: '41'
-};
+const produto: ProdutoInterface = {
+  titulo: 'Produto Exemplo',
+  preco: 100,
+  desconto: 10
+}
+
+// Enviar uma mensagem para o servidor
+client.write(JSON.stringify(produto));
 
 // Lidar com mensagens do servidor
 client.on('data', (mensagem: Buffer) => {
@@ -26,8 +25,5 @@ client.on('data', (mensagem: Buffer) => {
 client.on('close', () => {
   console.log('Conexão fechada');
 });
-
-// Enviar uma mensagem para o servidor
-client.write(JSON.stringify(person));
 
 client.end();
