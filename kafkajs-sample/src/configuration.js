@@ -21,19 +21,19 @@ const configuration = (() => {
     groupId: "consumerA",
   });
 
-  const consumerB = kafka.consumer({
-    groupId: "consumerB",
-  });
+  // const consumerB = kafka.consumer({
+  //   groupId: "consumerB",
+  // });
 
-  const consumerG = kafka.consumer({
-    groupId: "consumerGeneral",
-  });
+  // const consumerG = kafka.consumer({
+  //   groupId: "consumerGeneral",
+  // });
 
   return {
     producer,
     consumerA,
-    consumerB,
-    consumerG,
+    // consumerB,
+    // consumerG,
   };
 })();
 
