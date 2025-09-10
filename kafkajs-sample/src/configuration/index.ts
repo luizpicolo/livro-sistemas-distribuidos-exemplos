@@ -10,7 +10,8 @@ const kafkaConfig: KafkaConfig = {
   brokers: [`${process.env.KAFKA_HOST}:${process.env.KAFKA_PORT}`],
   // ssl: true,
   // sasl: {
-  //   mechanism: "scram-sha-512",
+  //   mechanism: "scram-sha-51
+  // 2",
   //   username: process.env.KAFKA_USERNAME,
   //   password: process.env.KAFKA_PASSWORD,
   // },
