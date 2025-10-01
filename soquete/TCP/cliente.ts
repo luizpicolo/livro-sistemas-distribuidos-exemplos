@@ -21,5 +21,5 @@ client.on('close', () => {
 
 // Enviar uma mensagem para o servidor
 client.write('Olá, servidor!\r\n', () => {
-  //client.end();
+  client.end();
 });

@@ -7,7 +7,7 @@ interface TaskRequest { id: number };
 interface Empty {};
 
 const tasksDefs = loadSync('./tasks.proto');
-const tasksProto = loadPackageDefinition(tasksDefs) as any;
+const tasksProto = loadPackageDefinition(tasksDefs).task as any;
 
 const tasks: Task[] = [
     { id: 1, title: 'Task 1' }

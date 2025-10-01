@@ -1,8 +1,12 @@
 syntax = "proto3";
 
+package task;
+
+import "google/protobuf/empty.proto";
+
 // Services
 service TaskService {
-    rpc FindAll(Empty) returns (TaskList) {}
+    rpc FindAll(google.protobuf.Empty) returns (TaskList) {}
     rpc InsertOne(Task) returns (Task) {}
     rpc FindOne(TaskRequest) returns (Task) {}
 }
