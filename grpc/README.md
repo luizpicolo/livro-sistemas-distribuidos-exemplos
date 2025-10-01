@@ -6,5 +6,7 @@
 
 Somente as bibliotecas de runtime necessárias para executar este exemplo:
 
-- @grpc/grpc-js
-- @grpc/proto-loader
+npm install --save-dev typescript ts-node
+npm install --save-dev @types/node
+npm install @grpc/grpc-js
+npm install @grpc/proto-loader
