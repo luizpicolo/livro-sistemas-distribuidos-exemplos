@@ -1,18 +1,20 @@
-import { loadPackageDefinition, Server, ServerCredentials, status, sendUnaryData, ServerUnaryCall } from '@grpc/grpc-js';
+import grpc from '@grpc/grpc-js';
 import { loadSync } from '@grpc/proto-loader';
+import type { ServerUnaryCall, sendUnaryData } from '@grpc/grpc-js';
 
-interface Task { id: number; title: string };
-interface TaskList { tasks: Task[] };
-interface TaskRequest { id: number };
-interface Empty {};
+type Task = { id: number; title: string };
+type TaskList = { tasks: Task[] };
+type TaskRequest = { id: number };
+type Empty = {};
 
 const tasksDefs = loadSync('./tasks.proto');
-const tasksProto = loadPackageDefinition(tasksDefs).task as any;
+const tasksProto = (grpc.loadPackageDefinition as any)(tasksDefs).task as any;
 
 const tasks: Task[] = [
     { id: 1, title: 'Task 1' }
 ];
 
+const { Server, ServerCredentials, status } = grpc as any;
 const grpcServer = new Server();
 
 grpcServer.addService(tasksProto.TaskService.service, {
